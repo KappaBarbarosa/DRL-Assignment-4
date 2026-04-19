@@ -1,34 +1,10 @@
-name: Python Application Test
-
-on:
-  workflow_dispatch:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        python-version: ['3.10']
-
-    steps:
-    - uses: actions/checkout@v3
-
-    - name: 1. Creating virtual env
-      uses: actions/setup-python@v4
-      with:
-        python-version: ${{ matrix.python-version }}
-
-    - name: 2. Installing dependencies
-      run: |
-        pip install -r requirements.txt
-
-    - name: 3. Run Evaluation
-      run: |
-        cd Q3/
-        chmod +x eval.cpython-310-x86_64-linux-gnu.so
-        python eval.py --token a91aae52cff9ef65932db06b150ffd47
+name: Evaluate HW4 Q3                                                                                                                                                                                   
+on:                                                                                                                                                                                                     
+  push:                                                                                                                                                                                                 
+    branches: [main]                                                                                                                                                                                    
+  workflow_dispatch:                                                                                                                                                                                    
+jobs:                                                                                                                                                                                                   
+  evaluate:                                                                                                                                                                                             
+    uses: ntu-rl-2026-spring2-hw4/drl-hw4-q3-judge/.github/workflows/evaluate.yml@main                                                                                                                  
+    secrets:                                                                                                                                                                                            
+      LEADERBOARD_TOKEN: ${{ secrets.LEADERBOARD_TOKEN }}  
